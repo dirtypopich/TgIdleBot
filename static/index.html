@@ -42,6 +42,38 @@
       font-size: 18px;
       margin-top: 12px;
     }
+    #character-screen {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      gap: 10px;
+      background-color: #2c2c2c;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    .equipment-grid div {
+      background-color: #444;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+    }
+    .stats {
+      margin-top: 20px;
+      background-color: #2c2c2c;
+      padding: 10px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 300px;
+    }
+    .stats div {
+      margin: 5px 0;
+    }
     #bottom-nav {
       position: fixed;
       bottom: 0;
@@ -75,10 +107,29 @@
     <h1>IdleCraft</h1>
     <button onclick="mine()">⛏ Майнить</button>
     <p id="output">Заработай токены!</p>
+
+    <div id="character-screen">
+      <h2>🎭 Персонаж</h2>
+      <div class="equipment-grid">
+        <div>Шлем</div>
+        <div>Наплечники</div>
+        <div>Нагрудник</div>
+        <div>Поножи</div>
+        <div>Ботинки</div>
+        <div>Левая рука</div>
+        <div>Правая рука</div>
+      </div>
+      <div class="stats">
+        <div>Сила: 10</div>
+        <div>Ловкость: 8</div>
+        <div>Выносливость: 12</div>
+        <div>Интеллект: 6</div>
+      </div>
+    </div>
   </div>
 
   <div id="bottom-nav">
-    <button onclick="alert('👤 Персонаж')">👤 Персонаж</button>
+    <button onclick="showCharacter()">👤 Персонаж</button>
     <button onclick="alert('🏦 Банк')">🏦 Банк</button>
     <button onclick="alert('🛒 Магазин')">🛒 Магазин</button>
     <button onclick="alert('⚔️ Сражения')">⚔️ Сражения</button>
@@ -95,6 +146,11 @@
       });
       const data = await res.json();
       document.getElementById("output").innerText = `+5 токенов! Баланс: ${data.tokens}`;
+    }
+
+    function showCharacter() {
+      const screen = document.getElementById("character-screen");
+      screen.style.display = screen.style.display === "flex" ? "none" : "flex";
     }
   </script>
 </body>
