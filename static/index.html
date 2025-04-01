@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>IdleCraft</title>
+  <script>
+    const BACKEND_URL = "https://localhost.ngrok.io"; // заменяется на BACKEND_URL из .env при деплое
+    let user_id = Telegram.WebApp.initDataUnsafe.user?.id || "guest";
+
+    async function mine() {
+      const res = await fetch(`${BACKEND_URL}/mine`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id })
+      });
+      const data = await res.json();
+      document.getElementById("output").innerText = `+5 токенов! Баланс: ${data.tokens}`;
+    }
+  </script>
+</head>
+<body>
+  <h1>IdleCraft</h1>
+  <button onclick="mine()">⛏ Майнить</button>
+  <p id="output">Заработай токены!</p>
+</body>
+</html>
