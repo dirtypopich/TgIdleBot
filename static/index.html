@@ -48,14 +48,13 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: auto;
       background-color: #222;
       display: flex;
       overflow-x: auto;
       white-space: nowrap;
       box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
       -webkit-overflow-scrolling: touch;
-      padding: 8px 4px;
+      padding: 8px 4px calc(env(safe-area-inset-bottom, 16px) + 4px);
       gap: 8px;
     }
     #bottom-nav button {
