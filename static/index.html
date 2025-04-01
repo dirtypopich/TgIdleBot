@@ -57,18 +57,19 @@
     #sidebar {
       position: fixed;
       top: 0;
-      left: -220px;
+      left: 0;
+      transform: translateX(-100%);
       width: 200px;
       height: 100%;
       background-color: #2b2b2b;
       padding: 20px 10px;
       box-sizing: border-box;
       overflow-y: auto;
-      transition: left 0.3s ease;
+      transition: transform 0.3s ease;
       z-index: 998;
     }
     #sidebar.open {
-      left: 0;
+      transform: translateX(0);
     }
     #sidebar button {
       display: block;
@@ -97,7 +98,7 @@
   </div>
 
   <script>
-    const user_id = Telegram.WebApp.initDataUnsafe.user?.id || "guest";
+    const user_id = Telegram.WebApp?.initDataUnsafe?.user?.id || "guest";
 
     async function mine() {
       const res = await fetch("/mine", {
@@ -111,9 +112,11 @@
 
     const sidebar = document.getElementById("sidebar");
     const menuToggle = document.getElementById("menu-toggle");
+
     menuToggle.addEventListener("click", () => {
       console.log("Кнопка меню нажата");
       sidebar.classList.toggle("open");
+      console.log("Sidebar классы теперь:", sidebar.className);
     });
   </script>
 </body>
