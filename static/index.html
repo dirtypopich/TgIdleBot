@@ -15,7 +15,7 @@
       color: white;
       overflow-y: auto;
     }
-    #app, #character-screen {
+    #app, #character-screen, #inventory-screen {
       display: none;
       min-height: 100%;
       flex-direction: column;
@@ -24,7 +24,7 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    #character-screen.active {
+    #character-screen.active, #inventory-screen.active {
       display: flex;
     }
     h1, h2 {
@@ -71,6 +71,21 @@
     }
     .stats div {
       margin: 5px 0;
+    }
+    .inventory-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      max-width: 360px;
+    }
+    .inventory-items div {
+      background-color: #444;
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      min-width: 80px;
+      flex: 1 0 30%;
     }
     #bottom-nav {
       position: fixed;
@@ -127,9 +142,21 @@
     </div>
   </div>
 
+  <div id="inventory-screen">
+    <h2>🎒 Инвентарь</h2>
+    <div class="inventory-items">
+      <div>🪨 Руда × 5</div>
+      <div>🧪 Зелье</div>
+      <div>🪓 Топор</div>
+      <div>🥖 Хлеб</div>
+      <div>🛡 Щит</div>
+      <div>📦 Мешок</div>
+    </div>
+  </div>
+
   <div id="bottom-nav">
     <button onclick="showTab('character-screen')">👤 Персонаж</button>
-    <button onclick="alert('🎒 Инвентарь')">🎒 Инвентарь</button>
+    <button onclick="showTab('inventory-screen')">🎒 Инвентарь</button>
     <button onclick="alert('🛒 Магазин')">🛒 Магазин</button>
     <button onclick="alert('⚔️ Сражения')">⚔️ Сражения</button>
   </div>
@@ -148,7 +175,7 @@
     }
 
     function showTab(id) {
-      document.querySelectorAll("#app, #character-screen").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll("#app, #character-screen, #inventory-screen").forEach(el => el.classList.remove("active"));
       document.getElementById(id).classList.add("active");
     }
   </script>
