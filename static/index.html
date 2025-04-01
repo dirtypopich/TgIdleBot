@@ -111,8 +111,9 @@
 
     menuToggle.addEventListener("click", () => {
       console.log("Кнопка меню нажата");
-      sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
-      console.log("Sidebar style.display:", sidebar.style.display);
+      const isHidden = getComputedStyle(sidebar).display === 'none';
+      sidebar.style.display = isHidden ? 'block' : 'none';
+      console.log("Sidebar теперь:", sidebar.style.display);
     });
   </script>
 </body>
