@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from database import database
+import os
 import uvicorn
 
 app = FastAPI()
@@ -30,6 +32,10 @@ def get_player(user_id: str):
         return player
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/", response_class=FileResponse)
+def index():
+    return FileResponse(os.path.join(os.path.dirname(__file__), "../static/index.html"))
 
 app.add_middleware(
     CORSMiddleware,
