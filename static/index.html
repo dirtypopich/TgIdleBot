@@ -44,10 +44,10 @@
       margin-top: 12px;
     }
     #menu-toggle {
-      position: absolute;
+      position: fixed;
       left: 10px;
       top: 10px;
-      z-index: 2;
+      z-index: 999;
       background-color: #333;
       border: none;
       border-radius: 8px;
@@ -65,7 +65,7 @@
       box-sizing: border-box;
       overflow-y: auto;
       transition: left 0.3s ease;
-      z-index: 1;
+      z-index: 998;
     }
     #sidebar.open {
       left: 0;
@@ -81,6 +81,8 @@
   </style>
 </head>
 <body>
+  <button id="menu-toggle">☰ Меню</button>
+
   <div id="sidebar">
     <button onclick="alert('👤 Персонаж')">👤 Персонаж</button>
     <button onclick="alert('🏦 Банк')">🏦 Банк</button>
@@ -89,7 +91,6 @@
   </div>
 
   <div id="app">
-    <button id="menu-toggle">☰ Меню</button>
     <h1>IdleCraft</h1>
     <button onclick="mine()">⛏ Майнить</button>
     <p id="output">Заработай токены!</p>
@@ -111,6 +112,7 @@
     const sidebar = document.getElementById("sidebar");
     const menuToggle = document.getElementById("menu-toggle");
     menuToggle.addEventListener("click", () => {
+      console.log("Кнопка меню нажата");
       sidebar.classList.toggle("open");
     });
   </script>
