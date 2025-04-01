@@ -24,7 +24,7 @@
       padding: 20px;
       box-sizing: border-box;
     }
-    #app.active, #character-screen.active {
+    #character-screen.active {
       display: flex;
     }
     h1, h2 {
@@ -101,13 +101,13 @@
   </style>
 </head>
 <body>
-  <div id="app" class="active">
+  <div id="app">
     <h1>IdleCraft</h1>
     <button onclick="mine()">⛏ Майнить</button>
     <p id="output">Заработай токены!</p>
   </div>
 
-  <div id="character-screen">
+  <div id="character-screen" class="active">
     <h2>🎭 Экипировка</h2>
     <div class="equipment-grid">
       <div>🪖 Шлем</div>
@@ -129,8 +129,7 @@
 
   <div id="bottom-nav">
     <button onclick="showTab('character-screen')">👤 Персонаж</button>
-    <button onclick="showTab('app')">🏗 Играть</button>
-    <button onclick="alert('🏦 Банк')">🏦 Банк</button>
+    <button onclick="alert('🎒 Инвентарь')">🎒 Инвентарь</button>
     <button onclick="alert('🛒 Магазин')">🛒 Магазин</button>
     <button onclick="alert('⚔️ Сражения')">⚔️ Сражения</button>
   </div>
