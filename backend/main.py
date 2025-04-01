@@ -1,43 +1,35 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import os
+from Database import database
 import uvicorn
 
 app = FastAPI()
-
-# Простая база
-players = {}
+database.init_db()
 
 class ActionRequest(BaseModel):
     user_id: str
+    name: str = "Игрок"
 
 @app.post("/mine")
 def mine(req: ActionRequest):
-    player = players.setdefault(req.user_id, {"xp": 0, "tokens": 0, "inventory": {}})
-    player["xp"] += 3
-    player["tokens"] += 5
-    player["inventory"].setdefault("руда", 0)
-    player["inventory"]["руда"] += 1
-    return player
+    player = database.get_or_create_player(req.user_id, req.name)
+    inventory = player["inventory"]
+    inventory["руда"] = inventory.get("руда", 0) + 1
+    database.update_player_field(req.user_id, "inventory", inventory)
+
+    return {
+        "message": "+5 токенов!",
+        "inventory": inventory
+    }
 
 @app.get("/player/{user_id}")
 def get_player(user_id: str):
-    if user_id not in players:
-        raise HTTPException(status_code=404, detail="Игрок не найден")
-    return players[user_id]
-
-# Абсолютный путь к static
-static_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "../static"))
-index_html = os.path.join(static_dir, "index.html")
-
-@app.get("/", response_class=HTMLResponse)
-def get_index():
-    return FileResponse(index_html)
-
-app.mount("/static", StaticFiles(directory=static_dir), name="static")
+    try:
+        player = database.get_or_create_player(user_id)
+        return player
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 app.add_middleware(
     CORSMiddleware,
