@@ -57,18 +57,15 @@
     #sidebar {
       position: fixed;
       top: 0;
-      left: -200px;
+      left: 0;
       width: 200px;
       height: 100%;
-      background-color: #2b2b2b;
+      background-color: #ff3b3b; /* временно красный для отладки */
       padding: 20px 10px;
       box-sizing: border-box;
       overflow-y: auto;
-      transition: left 0.3s ease;
       z-index: 998;
-    }
-    #sidebar.open {
-      left: 0;
+      border-right: 2px solid white;
     }
     #sidebar button {
       display: block;
@@ -114,8 +111,8 @@
 
     menuToggle.addEventListener("click", () => {
       console.log("Кнопка меню нажата");
-      sidebar.classList.toggle("open");
-      console.log("Sidebar классы теперь:", sidebar.className);
+      sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+      console.log("Sidebar style.display:", sidebar.style.display);
     });
   </script>
 </body>
