@@ -16,7 +16,7 @@
       overflow: hidden;
     }
     #app {
-      height: 100%;
+      height: calc(100% - 60px);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -43,55 +43,42 @@
       font-size: 18px;
       margin-top: 12px;
     }
-    #menu-toggle {
+    #bottom-nav {
       position: fixed;
-      left: 10px;
-      top: 10px;
-      z-index: 999;
-      background-color: #333;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      padding: 10px;
-    }
-    #sidebar {
-      display: none;
-      position: fixed;
-      top: 0;
+      bottom: 0;
       left: 0;
-      width: 200px;
-      height: 100%;
-      background-color: #ff3b3b; /* временно красный для отладки */
-      padding: 20px 10px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      z-index: 998;
-      border-right: 2px solid white;
-    }
-    #sidebar button {
-      display: block;
       width: 100%;
-      margin: 10px 0;
-      padding: 10px;
+      height: 60px;
+      background-color: #222;
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+      box-shadow: 0 -2px 5px rgba(0,0,0,0.5);
+    }
+    #bottom-nav button {
+      flex: 0 0 auto;
+      margin: 8px;
+      padding: 10px 16px;
       font-size: 16px;
       background-color: #444;
+      border: none;
+      border-radius: 10px;
+      color: white;
     }
   </style>
 </head>
 <body>
-  <button id="menu-toggle">☰ Меню</button>
-
-  <div id="sidebar">
-    <button onclick="alert('👤 Персонаж')">👤 Персонаж</button>
-    <button onclick="alert('🏦 Банк')">🏦 Банк</button>
-    <button onclick="alert('🛒 Магазин')">🛒 Магазин</button>
-    <button onclick="alert('⚔️ Сражения')">⚔️ Сражения</button>
-  </div>
-
   <div id="app">
     <h1>IdleCraft</h1>
     <button onclick="mine()">⛏ Майнить</button>
     <p id="output">Заработай токены!</p>
+  </div>
+
+  <div id="bottom-nav">
+    <button onclick="alert('👤 Персонаж')">👤 Персонаж</button>
+    <button onclick="alert('🏦 Банк')">🏦 Банк</button>
+    <button onclick="alert('🛒 Магазин')">🛒 Магазин</button>
+    <button onclick="alert('⚔️ Сражения')">⚔️ Сражения</button>
   </div>
 
   <script>
@@ -106,16 +93,6 @@
       const data = await res.json();
       document.getElementById("output").innerText = `+5 токенов! Баланс: ${data.tokens}`;
     }
-
-    const sidebar = document.getElementById("sidebar");
-    const menuToggle = document.getElementById("menu-toggle");
-
-    menuToggle.addEventListener("click", () => {
-      console.log("Кнопка меню нажата");
-      const isHidden = getComputedStyle(sidebar).display === 'none';
-      sidebar.style.display = isHidden ? 'block' : 'none';
-      console.log("Sidebar теперь:", sidebar.style.display);
-    });
   </script>
 </body>
 </html>
