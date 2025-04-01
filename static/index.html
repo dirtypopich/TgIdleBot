@@ -1,14 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>IdleCraft</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #1e1e1e;
+      font-family: sans-serif;
+      color: white;
+    }
+    #app {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+    button {
+      padding: 14px 28px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      background-color: #4caf50;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .nav {
+      display: flex;
+      width: 100%;
+      justify-content: space-around;
+      margin-top: auto;
+    }
+    .nav button {
+      flex: 1;
+      margin: 0 5px;
+      background-color: #333;
+    }
+    p {
+      font-size: 18px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>IdleCraft</h1>
+    <button onclick="mine()">⛏ Майнить</button>
+    <p id="output">Заработай токены!</p>
+
+    <div class="nav">
+      <button onclick="alert('💰 Магазин скоро!')">🛒 Магазин</button>
+      <button onclick="alert('🎒 Инвентарь пока пуст')">🎒 Инвентарь</button>
+      <button onclick="alert('💎 Баланс: ?')">💎 Золото</button>
+    </div>
+  </div>
+
   <script>
-    const BACKEND_URL = "https://localhost.ngrok.io"; // заменяется на BACKEND_URL из .env при деплое
-    let user_id = Telegram.WebApp.initDataUnsafe.user?.id || "guest";
+    const user_id = Telegram.WebApp.initDataUnsafe.user?.id || "guest";
 
     async function mine() {
-      const res = await fetch(`${BACKEND_URL}/mine`, {
+      const res = await fetch("/mine", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ user_id })
@@ -17,10 +80,5 @@
       document.getElementById("output").innerText = `+5 токенов! Баланс: ${data.tokens}`;
     }
   </script>
-</head>
-<body>
-  <h1>IdleCraft</h1>
-  <button onclick="mine()">⛏ Майнить</button>
-  <p id="output">Заработай токены!</p>
 </body>
 </html>
