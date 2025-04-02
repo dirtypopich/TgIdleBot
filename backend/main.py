@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from database import database
 import os
@@ -8,6 +9,13 @@ import uvicorn
 
 app = FastAPI()
 database.init_db()
+
+# Подключение папки static
+app.mount(
+    "/static",
+    StaticFiles(directory=os.path.join(os.path.dirname(__file__), "../static")),
+    name="static"
+)
 
 class ActionRequest(BaseModel):
     user_id: str
