@@ -45,22 +45,39 @@
       font-size: 18px;
       margin-top: 12px;
     }
-    .equipment-grid {
-      display: grid;
-      grid-template-columns: repeat(3, auto);
-      gap: 10px;
-      background-color: #2c2c2c;
-      padding: 10px;
-      border-radius: 10px;
+
+    /* Character screen with background */
+    .character-visual {
+      position: relative;
+      width: 240px;
+      height: 480px;
+      background-image: url("/static/character_bg.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
       margin-top: 20px;
     }
-    .equipment-grid div {
-      background-color: #444;
-      padding: 10px;
+    .slot {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid #888;
       border-radius: 8px;
       text-align: center;
-      min-width: 80px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    .slot.helmet { top: 10px; left: 95px; }
+    .slot.shoulders { top: 70px; left: 20px; }
+    .slot.chest { top: 120px; left: 95px; }
+    .slot.legs { top: 200px; left: 95px; }
+    .slot.boots { top: 290px; left: 95px; }
+    .slot.left_hand { top: 140px; left: 10px; }
+    .slot.right_hand { top: 140px; right: 10px; }
+
     .stats {
       margin-top: 20px;
       background-color: #2c2c2c;
@@ -124,15 +141,16 @@
 
   <div id="character-screen" class="active">
     <h2>🎭 Экипировка</h2>
-    <div class="equipment-grid">
-      <div>🪖 Шлем</div>
-      <div>🛡 Наплечники</div>
-      <div>👕 Нагрудник</div>
-      <div>👖 Поножи</div>
-      <div>🥾 Ботинки</div>
-      <div>🗡 Левая рука</div>
-      <div>🗡 Правая рука</div>
+    <div class="character-visual">
+      <div class="slot helmet">Шлем</div>
+      <div class="slot shoulders">Наплечники</div>
+      <div class="slot chest">Нагрудник</div>
+      <div class="slot legs">Поножи</div>
+      <div class="slot boots">Ботинки</div>
+      <div class="slot left_hand">Левая рука</div>
+      <div class="slot right_hand">Правая рука</div>
     </div>
+
     <h2 style="margin-top: 30px;">📊 Характеристики</h2>
     <div class="stats">
       <div>Сила: 10</div>
