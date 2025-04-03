@@ -45,19 +45,16 @@
       font-size: 18px;
       margin-top: 12px;
     }
-
-    /* Character screen with background */
     .character-visual {
       position: relative;
-      width: min(70vw, 360px);  /* максимум 360px */
-      height: calc(min(70vw, 360px) * 2);  /* высота в 2 раза больше ширины */
+      width: min(70vw, 360px);
+      height: calc(min(70vw, 360px) * 2);
       background-image: url("/static/character_bg.png");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
       margin: 0 auto;
     }
-
     .slot {
       position: absolute;
       width: 16%;
@@ -70,7 +67,6 @@
       justify-content: center;
       font-size: 0.6rem;
     }
-
     .slot.helmet { top: 10%; left: 42%; }
     .slot.shoulders { top: 16%; right: 10%; }
     .slot.chest { top: 28%; left: 42%; }
@@ -78,11 +74,9 @@
     .slot.boots { top: 80%; left: 42%; }
     .slot.left_hand { top: 50%; left: 5%; }
     .slot.right_hand { top: 50%; right: 5%; }
-
     @media (max-width: 480px) {
       .slot { font-size: 0.5rem; }
     }
-
     .stats {
       margin-top: 20px;
       background-color: #2c2c2c;
@@ -95,19 +89,22 @@
       margin: 5px 0;
     }
     .inventory-items {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       margin-top: 20px;
-      max-width: 360px;
+      max-width: 320px;
+      width: 100%;
     }
-    .inventory-items div {
+    .inventory-slot {
       background-color: #444;
       border-radius: 8px;
       padding: 10px;
       text-align: center;
-      min-width: 80px;
-      flex: 1 0 30%;
+      min-height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     #bottom-nav {
       position: fixed;
@@ -149,7 +146,6 @@
       <div class="slot left_hand">Левая рука</div>
       <div class="slot right_hand">Правая рука</div>
     </div>
-
     <h2 style="margin-top: 30px;">📊 Характеристики</h2>
     <div class="stats">
       <div>Сила: 10</div>
@@ -161,13 +157,8 @@
 
   <div id="inventory-screen">
     <h2>🎒 Инвентарь</h2>
-    <div class="inventory-items">
-      <div>🪨 Руда × 5</div>
-      <div>🧪 Зелье</div>
-      <div>🪓 Топор</div>
-      <div>🥖 Хлеб</div>
-      <div>🛡 Щит</div>
-      <div>📦 Мешок</div>
+    <div class="inventory-items" id="inventory-grid">
+      <!-- Ячейки появятся динамически -->
     </div>
   </div>
 
@@ -195,6 +186,34 @@
       document.querySelectorAll("#app, #character-screen, #inventory-screen").forEach(el => el.classList.remove("active"));
       document.getElementById(id).classList.add("active");
     }
+
+    const INVENTORY_SIZE = 16;
+    function renderInventory(items = {}) {
+      const grid = document.getElementById("inventory-grid");
+      grid.innerHTML = "";
+
+      const keys = Object.keys(items);
+      for (let i = 0; i < INVENTORY_SIZE; i++) {
+        const slot = document.createElement("div");
+        slot.classList.add("inventory-slot");
+
+        const itemKey = keys[i];
+        if (itemKey) {
+          const item = items[itemKey];
+          slot.textContent = `${item.emoji || "📦"} ${itemKey} × ${item.count}`;
+        } else {
+          slot.style.opacity = "0.3";
+        }
+
+        grid.appendChild(slot);
+      }
+    }
+
+    renderInventory({
+      "руда": { count: 5, emoji: "🪨" },
+      "зелье": { count: 2, emoji: "🧪" },
+      "топор": { count: 1, emoji: "🪓" }
+    });
   </script>
 </body>
 </html>
