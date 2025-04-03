@@ -47,14 +47,12 @@
     }
 
     /* Character screen with background */
-        .character-visual {
+    .character-visual {
       position: relative;
-      width: 80vw;
-      height: 60vh;
-      max-width: 400px;
-      max-height: 700px;
+      width: min(90vw, 360px);  /* максимум 360px */
+      height: calc(min(90vw, 360px) * 2);  /* высота в 2 раза больше ширины */
       background-image: url("/static/character_bg.png");
-      background-size: contain;
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
       margin: 0 auto;
@@ -62,7 +60,7 @@
 
     .slot {
       position: absolute;
-      width: 10%;
+      width: 16%;
       aspect-ratio: 1 / 1;
       background-color: rgba(255, 255, 255, 0.1);
       border: 2px solid #888;
@@ -73,13 +71,13 @@
       font-size: 0.6rem;
     }
 
-    .slot.helmet { top: 4%; left: 45%; }
-    .slot.shoulders { top: 15%; left: 10%; }
-    .slot.chest { top: 25%; left: 45%; }
-    .slot.legs { top: 45%; left: 45%; }
-    .slot.boots { top: 65%; left: 45%; }
-    .slot.left_hand { top: 35%; left: 0%; }
-    .slot.right_hand { top: 35%; right: 0%; }
+    .slot.helmet { top: 4%; left: 42%; }
+    .slot.shoulders { top: 16%; left: 10%; }
+    .slot.chest { top: 28%; left: 42%; }
+    .slot.legs { top: 48%; left: 42%; }
+    .slot.boots { top: 68%; left: 42%; }
+    .slot.left_hand { top: 32%; left: 5%; }
+    .slot.right_hand { top: 32%; right: 5%; }
 
     @media (max-width: 480px) {
       .slot { font-size: 0.5rem; }
@@ -140,12 +138,6 @@
   </style>
 </head>
 <body>
-  <div id="app">
-    <h1>IdleCraft</h1>
-    <button onclick="mine()">⛏ Майнить</button>
-    <p id="output">Заработай токены!</p>
-  </div>
-
   <div id="character-screen" class="active">
     <h2>🎭 Экипировка</h2>
     <div class="character-visual">
