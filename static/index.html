@@ -47,36 +47,43 @@
     }
 
     /* Character screen with background */
-    .character-visual {
+        .character-visual {
       position: relative;
-      width: 240px;
-      height: 480px;
+      width: 80vw;
+      height: 60vh;
+      max-width: 400px;
+      max-height: 700px;
       background-image: url("/static/character_bg.png");
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      margin-top: 20px;
+      margin: 0 auto;
     }
+
     .slot {
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 10%;
+      aspect-ratio: 1 / 1;
       background-color: rgba(255, 255, 255, 0.1);
       border: 2px solid #888;
       border-radius: 8px;
-      text-align: center;
-      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 0.6rem;
     }
-    .slot.helmet { top: 10px; left: 95px; }
-    .slot.shoulders { top: 70px; left: 20px; }
-    .slot.chest { top: 120px; left: 95px; }
-    .slot.legs { top: 200px; left: 95px; }
-    .slot.boots { top: 290px; left: 95px; }
-    .slot.left_hand { top: 140px; left: 10px; }
-    .slot.right_hand { top: 140px; right: 10px; }
+
+    .slot.helmet { top: 4%; left: 45%; }
+    .slot.shoulders { top: 15%; left: 10%; }
+    .slot.chest { top: 25%; left: 45%; }
+    .slot.legs { top: 45%; left: 45%; }
+    .slot.boots { top: 65%; left: 45%; }
+    .slot.left_hand { top: 35%; left: 0%; }
+    .slot.right_hand { top: 35%; right: 0%; }
+
+    @media (max-width: 480px) {
+      .slot { font-size: 0.5rem; }
+    }
 
     .stats {
       margin-top: 20px;
